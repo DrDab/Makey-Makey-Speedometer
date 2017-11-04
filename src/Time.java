@@ -52,6 +52,7 @@ public class Time implements NativeKeyListener
 			 System.err.println("[!] This OS is not supported, so file I/O may not work.");
 			 oswarn = true;
 		 }
+		 System.out.println("OS is supported: " + !oswarn);
 		 button = new JButton("Set Distance");
 		 help = new JButton("Help");
 		 makeCSV = new JButton("Export to CSV");
@@ -120,6 +121,7 @@ public class Time implements NativeKeyListener
 		{
 			// TODO Auto-generated catch block
 			System.err.println("NativeHookException:" + e);
+			label.setText("OwO what's this? " + e);
 			e.printStackTrace();
 		}
 		GlobalScreen.getInstance().addNativeKeyListener(new Time());
@@ -238,13 +240,15 @@ public class Time implements NativeKeyListener
 		}
 		madoka.println("Avg=," + Math.round((getAverage(list)) * 100.0) / 100.0);
 		madoka.flush();
+		label.setText("Results saved to:" + log);
 		System.out.println("Done");
 	}
 	public static boolean isUnix()
 	{
 		return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 || OS.indexOf("mac") >= 0);
 	}
-	public static boolean isWindows() {
+	public static boolean isWindows()
+	{
 		return (OS.indexOf("win") >= 0);
 	}
 }
