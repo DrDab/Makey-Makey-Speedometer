@@ -124,7 +124,7 @@ public class Time implements NativeKeyListener
 				mode = 0;
 			}
 		}
-		drawChart(results);
+		//drawChart(results);
 		System.exit(0);
 		}
 	@Override
@@ -183,10 +183,12 @@ public class Time implements NativeKeyListener
 			log.createNewFile();
 		} 
 		PrintWriter madoka = new PrintWriter(new FileWriter(log, true));
+		madoka.println("Trial, Speed(m/s)");
 		for(int k = 0; k < list.size(); k++)
 		{
 			madoka.println(k+1 + "," + list.get(k));
 		}
+		madoka.println("Avg=," + getAverage(list));
 		madoka.flush();
 		System.out.println("Done");
 	}
