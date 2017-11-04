@@ -40,8 +40,16 @@ public class Time implements NativeKeyListener
 	static JButton help;
 	static JButton makeCSV;
 	static String getValue = "0.0";
+	static String OS = System.getProperty("os.name").toLowerCase();
+	static boolean oswarn = false;
 	public static void main (String[] args)
 	{	
+		 System.out.println("OS: " + OS);
+		 if (!isUnix() && !isWindows())
+		 {
+			 System.err.println("[!] This OS is not supported, so file I/O may not work.");
+			 oswarn = true;
+		 }
 		 button = new JButton("Set Distance");
 		 help = new JButton("Help");
 		 makeCSV = new JButton("Export to CSV");
@@ -53,7 +61,14 @@ public class Time implements NativeKeyListener
 		 label2.setLabelFor(textfield);
 		 panel.add(label2, BorderLayout.WEST);
 		 panel.add(textfield, BorderLayout.CENTER);
-		 frame = new JFrame("Makey Makey Speedometer v0.1b by Victor Du");
+		 if (oswarn)
+		 {
+			 frame = new JFrame("Makey Makey Speedometer v0.1b (OS Not Supported)");
+		 }
+		 else
+		 {
+			 frame = new JFrame("Makey Makey Speedometer v0.1b by Victor Du");
+		 }
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          label = new JLabel("speed", JLabel.CENTER);
          label.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
@@ -176,7 +191,21 @@ public class Time implements NativeKeyListener
 	public static void makeCSV(ArrayList<Double> list) throws IOException
 	{
 		System.out.println("Printing Excel CSV file...");
-		File log = new File("C:/LanSchool Files/speedometer.csv");
+		File log;
+		if (isUnix())
+		{
+			log = new File("/home/" + System.getProperty("user.name") + "/Documents/speedometer.csv");
+		}
+		else if (isWindows())
+		{
+			log = new File("C:/LanSchool Files/speedometer.csv");
+		}
+		else
+		{
+			System.out.println("[!] This OS isn't supported, attempting to save w/ UNIX fs...");
+			log = new File("/home/" + System.getProperty("user.name") + "/Documents/speedometer.csv");
+		}
+		System.out.println("Log saved at: " + log);
 		if(!log.exists())
 		{
 			System.out.println("Creating a new CSV file for you...");
@@ -191,5 +220,12 @@ public class Time implements NativeKeyListener
 		madoka.println("Avg=," + getAverage(list));
 		madoka.flush();
 		System.out.println("Done");
+	}
+	public static boolean isUnix()
+	{
+		return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 || OS.indexOf("mac") >= 0);
+	}
+	public static boolean isWindows() {
+		return (OS.indexOf("win") >= 0);
 	}
 }
