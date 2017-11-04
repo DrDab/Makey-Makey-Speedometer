@@ -143,7 +143,7 @@ public class Time implements NativeKeyListener
 			if (mode == 2)
 			{
 				double spd = Math.round((distance/time) * 100.0) / 100.0;;
-				label.setText("The speed is "+ spd + "m/s");
+				label.setText("The speed is "+ spd + "m/s (Trial " + (results.size()+1)+ ")");
 				label.setPreferredSize(new Dimension(400, 170));
 				results.add(spd);
 				drawChart(results);
@@ -160,9 +160,16 @@ public class Time implements NativeKeyListener
 		// TODO Auto-generated method stub
 		if (mode == 0 && NativeKeyEvent.getKeyText(e.getKeyCode()).matches("W"))
 		{
+			if (distanceset)
+			{
 			s = new Stopwatch();
 			mode = 1;
 			System.out.println("\n1st sensor triggered");
+			}
+			else
+			{
+				label.setText("Please set the distance.");
+			}
 		}
 		if (mode == 1 && NativeKeyEvent.getKeyText(e.getKeyCode()).matches("A"))
 		{
@@ -229,7 +236,7 @@ public class Time implements NativeKeyListener
 		{
 			madoka.println(k+1 + "," + list.get(k));
 		}
-		madoka.println("Avg=," + getAverage(list));
+		madoka.println("Avg=," + Math.round((getAverage(list)) * 100.0) / 100.0);
 		madoka.flush();
 		System.out.println("Done");
 	}
