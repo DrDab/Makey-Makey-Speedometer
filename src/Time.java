@@ -11,8 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -210,10 +208,12 @@ public class Time implements NativeKeyListener
 		System.out.println("===================================================");
 		System.out.println("Average speed of all trials: " + Math.round((getAverage(list)) * 100.0) / 100.0 + "m/s");
 	}
+	@SuppressWarnings("resource")
 	public static void makeCSV(ArrayList<Double> list) throws IOException
 	{
 		System.out.println("Printing Excel CSV file...");
 		File log;
+		File k;
 		if (isUnix())
 		{
 			log = new File("/home/" + System.getProperty("user.name") + "/Documents/speedometer.csv");
@@ -221,6 +221,11 @@ public class Time implements NativeKeyListener
 		else if (isWindows())
 		{
 			log = new File("C:/LanSchool Files/speedometer.csv");
+			k = new File("C:/LanSchool Files/");
+			if (!k.exists())
+			{
+				k.mkdir();
+			}
 		}
 		else
 		{
@@ -235,9 +240,9 @@ public class Time implements NativeKeyListener
 		} 
 		PrintWriter madoka = new PrintWriter(new FileWriter(log, true));
 		madoka.println("Trial, Speed(m/s)");
-		for(int k = 0; k < list.size(); k++)
+		for(int sk = 0; sk < list.size(); sk++)
 		{
-			madoka.println(k+1 + "," + list.get(k));
+			madoka.println(sk+1 + "," + list.get(sk));
 		}
 		madoka.println("Avg=," + Math.round((getAverage(list)) * 100.0) / 100.0);
 		madoka.flush();
