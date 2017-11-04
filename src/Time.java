@@ -145,6 +145,7 @@ public class Time implements NativeKeyListener
 			if (mode == 2)
 			{
 				double spd = Math.round((distance/time) * 100.0) / 100.0;;
+				label.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
 				label.setText("The speed is "+ spd + "m/s (Trial " + (results.size()+1)+ ")");
 				label.setPreferredSize(new Dimension(400, 170));
 				results.add(spd);
@@ -240,6 +241,7 @@ public class Time implements NativeKeyListener
 		}
 		madoka.println("Avg=," + Math.round((getAverage(list)) * 100.0) / 100.0);
 		madoka.flush();
+		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
 		label.setText("Results saved to:" + log);
 		System.out.println("Done");
 	}
