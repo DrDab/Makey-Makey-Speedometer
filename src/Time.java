@@ -42,6 +42,8 @@ public class Time implements NativeKeyListener
 	static String getValue = "0.0";
 	static String OS = System.getProperty("os.name").toLowerCase();
 	static boolean oswarn = false;
+	static boolean distanceset = false;
+	static boolean blooean = false;
 	public static void main (String[] args)
 	{	
 		 System.out.println("OS: " + OS);
@@ -84,6 +86,7 @@ public class Time implements NativeKeyListener
 			   public void actionPerformed(ActionEvent ae){
 				   distance = Double.parseDouble(textfield.getText());
 				   System.out.println(textfield.getText());
+				   distanceset = true;
 			   }
 		});
 		 help.addActionListener(new ActionListener(){
@@ -128,6 +131,15 @@ public class Time implements NativeKeyListener
 				break;
 			}
 			System.out.print("");
+			if (!distanceset)
+			{
+				 label.setText("Please set the distance above.");  
+			}
+			else if (distanceset && !blooean)
+			{
+				 blooean = true;
+				 label.setText("Waiting for start input");  
+			}
 			if (mode == 2)
 			{
 				double spd = Math.round((distance/time) * 100.0) / 100.0;;
