@@ -102,7 +102,10 @@ public class Time implements NativeKeyListener
 			   public void actionPerformed(ActionEvent ae){
 				  try
 				  {
-					makeCSV(results);
+					if (!makeCSV(results))
+					{
+						label.setText("Nothing to log.");
+					}
 				  } 
 				  catch (IOException e)
 				  {
@@ -209,8 +212,14 @@ public class Time implements NativeKeyListener
 		System.out.println("Average speed of all trials: " + Math.round((getAverage(list)) * 100.0) / 100.0 + "m/s");
 	}
 	@SuppressWarnings("resource")
-	public static void makeCSV(ArrayList<Double> list) throws IOException
+	public static boolean makeCSV(ArrayList<Double> list) throws IOException
 	{
+		if (list.size() == 0)
+		{
+			return false;
+		}
+		else
+		{
 		System.out.println("Printing Excel CSV file...");
 		File log;
 		File k;
@@ -249,6 +258,8 @@ public class Time implements NativeKeyListener
 		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
 		label.setText("Results saved to:" + log);
 		System.out.println("Done");
+		return true;
+		}
 	}
 	public static boolean isUnix()
 	{
