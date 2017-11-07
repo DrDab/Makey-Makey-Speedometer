@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -51,6 +52,16 @@ public class Time implements NativeKeyListener
 			 oswarn = true;
 		 }
 		 System.out.println("OS is supported: " + !oswarn);
+		 System.out.println("JRE Version: " + getVersion());
+		 if (getVersion() < 1.7)
+		 {
+			 System.err.println("[!] This JRE is too old! Minimum JRE: v1.7 Your JRE:v" + getVersion());
+		 }
+		 System.out.println("RAM: " + getRAM());
+		 if (getRAM() < 500000000)
+		 {
+			 System.err.println("[!] Not enough RAM allocated! Minimum RAM: 500000000 Your RAM: " + getRAM());
+		 }
 		 button = new JButton("Set Distance");
 		 help = new JButton("Help");
 		 makeCSV = new JButton("Export to CSV");
@@ -268,5 +279,15 @@ public class Time implements NativeKeyListener
 	public static boolean isWindows()
 	{
 		return (OS.indexOf("win") >= 0);
+	}
+	public static double getVersion () {
+	    String version = System.getProperty("java.version");
+	    int pos = version.indexOf('.');
+	    pos = version.indexOf('.', pos+1);
+	    return Double.parseDouble (version.substring (0, pos));
+	}
+	public static long getRAM()
+	{
+		return Runtime.getRuntime().maxMemory();
 	}
 }
