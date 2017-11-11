@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -43,12 +42,20 @@ public class Time implements NativeKeyListener
 	static boolean oswarn = false;
 	static boolean distanceset = false;
 	static boolean blooean = false;
+	
+	/**
+	 * The following settings are user-configurable.
+	 * @author Victor Du
+	 */
+	
+	static boolean suppresswarnings = false;
+	
 	public static void main (String[] args)
 	{	
 		 System.out.println("OS: " + OS);
 		 if (!isUnix() && !isWindows())
 		 {
-			 System.err.println("[!] This OS is not supported, so file I/O may not work.");
+			 System.err.println("[!] This OS is not supported, so file I/O may not work. Supported OS: Windows, OS X, GNU/Linux. Your OS: " + OS);
 			 oswarn = true;
 		 }
 		 System.out.println("OS is supported: " + !oswarn);
@@ -56,12 +63,50 @@ public class Time implements NativeKeyListener
 		 if (getVersion() < 1.7)
 		 {
 			 System.err.println("[!] This JRE is too old! Minimum JRE: v1.7 Your JRE:v" + getVersion());
+			 if (!suppresswarnings)
+			 {
+				  JFrame kawaii = new JFrame("Error");
+				  kawaii.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				  JLabel kawaiichan = new JLabel("kawaiichan", JLabel.CENTER);
+				  JButton button99 = new JButton("OK");
+				  kawaiichan.setText("Your Java version is too old! Minimum needed: 1.7");
+				  kawaii.add(kawaiichan);
+				  kawaii.add(button99, BorderLayout.SOUTH);
+				  kawaii.setSize(800, 200);
+				  kawaii.setVisible(true);
+				  button99.addActionListener(new ActionListener()
+				  {
+					   public void actionPerformed(ActionEvent ae)
+					   {
+					        System.exit(0);
+					   }
+				});
+			 }
 		 }
 		 System.out.println("RAM: " + getRAM());
 		 if (getRAM() < 500000000)
 		 {
 			 System.err.println("[!] Not enough RAM allocated! Minimum RAM: 500000000 Your RAM: " + getRAM());
+			 if (!suppresswarnings)
+			 {
+				  JFrame kawaii = new JFrame("Error");
+				  kawaii.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				  JLabel kawaiichan = new JLabel("kawaiichan", JLabel.CENTER);
+				  JButton button99 = new JButton("OK");
+				  kawaiichan.setText("You haven't allocated enough RAM! Minimum needed: 500MB");
+				  kawaii.add(kawaiichan);
+				  kawaii.add(button99, BorderLayout.SOUTH);
+				  kawaii.setSize(800, 200);
+				  kawaii.setVisible(true);
+				  button99.addActionListener(new ActionListener()
+				  {
+					   public void actionPerformed(ActionEvent ae){
+					        System.exit(0);
+					   }
+				});
+			 }
 		 }
+		 System.out.println("Startup Time: " + (long)System.currentTimeMillis()/1000.0);
 		 button = new JButton("Set Distance");
 		 help = new JButton("Help");
 		 makeCSV = new JButton("Export to CSV");
@@ -103,10 +148,17 @@ public class Time implements NativeKeyListener
 			   public void actionPerformed(ActionEvent ae){
 				  JFrame kawaii = new JFrame("Help");
 				  JLabel kawaiichan = new JLabel("kawaiichan", JLabel.CENTER);
+				  JButton button99 = new JButton("OK");
 				  kawaiichan.setText("Bind the first MakeyMakey to key [W] and the second to key [A]. This software is open source and freely redistributable (MIT License).");
 				  kawaii.add(kawaiichan);
+				  kawaii.add(button99, BorderLayout.SOUTH);
 				  kawaii.setSize(800, 200);
 				  kawaii.setVisible(true);
+				  button99.addActionListener(new ActionListener(){
+					   public void actionPerformed(ActionEvent ae){
+					        kawaii.dispose();
+					   }
+				});
 			   }
 		});
 		 makeCSV.addActionListener(new ActionListener(){
@@ -162,6 +214,7 @@ public class Time implements NativeKeyListener
 				label.setPreferredSize(new Dimension(400, 170));
 				results.add(spd);
 				drawChart(results);
+				System.out.println("\nTime elapsed: " + time + " sec \n");
 				System.out.println("\n          This trial, the car travelled at " + spd + " meters per second. (Trial " + results.size() + ")\n");
 				mode = 0;
 			}
