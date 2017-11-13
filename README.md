@@ -12,7 +12,10 @@ To use, follow the steps:
 7. You may repeat for more trials. Once finished, you may export the results in CSV form for collection of results using LanSchool. The data file is stored in "C:/LanSchool Files". The CSV file contains 2 columns, one is the trial # and the other is the speed.
 # Disclaimer
 This software is not intended or certified for exact measurements of speed or industrial usage. The author (Victor Du) does not assume any liability or responsibility for any damages incurred by use of this software.
-
+# Minimum System Requirements
+CPU: 32 or 64-bit CPU with at least 2 cores
+RAM: At least 512 MB of RAM
+JRE Version: Minimum 1.7
 # License
 Copyright (c) 2017 Victor Du
 
