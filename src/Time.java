@@ -59,10 +59,10 @@ public class Time implements NativeKeyListener
 			 oswarn = true;
 		 }
 		 System.out.println("OS is supported: " + !oswarn);
-		 System.out.println("JRE Version: " + getVersion());
-		 if (getVersion() < 1.7)
+		 System.out.println("JRE Version: " + getJREVersion());
+		 if (getJREVersion() < 1.7)
 		 {
-			 System.err.println("[!] This JRE is too old! Minimum JRE: v1.7 Your JRE:v" + getVersion());
+			 System.err.println("[!] This JRE is too old! Minimum JRE: v1.7 Your JRE:v" + getJREVersion());
 			 if (!suppresswarnings)
 			 {
 				  JFrame kawaii = new JFrame("Error");
@@ -137,15 +137,19 @@ public class Time implements NativeKeyListener
 		 frame.add(makeCSV, BorderLayout.WEST);
 		 frame.setSize(560, 420); 
 		 frame.setVisible(true); // Display the frame
-		 button.addActionListener(new ActionListener(){
-			   public void actionPerformed(ActionEvent ae){
+		 button.addActionListener(new ActionListener()
+		 {
+			   public void actionPerformed(ActionEvent ae)
+			   {
 				   distance = Double.parseDouble(textfield.getText());
 				   System.out.println(textfield.getText());
 				   distanceset = true;
 			   }
 		});
-		 help.addActionListener(new ActionListener(){
-			   public void actionPerformed(ActionEvent ae){
+		 help.addActionListener(new ActionListener()
+		 {
+			   public void actionPerformed(ActionEvent ae)
+			   {
 				  JFrame kawaii = new JFrame("Help");
 				  JLabel kawaiichan = new JLabel("kawaiichan", JLabel.CENTER);
 				  JButton button99 = new JButton("OK");
@@ -154,8 +158,10 @@ public class Time implements NativeKeyListener
 				  kawaii.add(button99, BorderLayout.SOUTH);
 				  kawaii.setSize(800, 200);
 				  kawaii.setVisible(true);
-				  button99.addActionListener(new ActionListener(){
-					   public void actionPerformed(ActionEvent ae){
+				  button99.addActionListener(new ActionListener()
+				  {
+					   public void actionPerformed(ActionEvent ae)
+					   {
 					        kawaii.dispose();
 					   }
 				});
@@ -333,7 +339,8 @@ public class Time implements NativeKeyListener
 	{
 		return (OS.indexOf("win") >= 0);
 	}
-	public static double getVersion () {
+	public static double getJREVersion()
+	{
 	    String version = System.getProperty("java.version");
 	    int pos = version.indexOf('.');
 	    pos = version.indexOf('.', pos+1);
