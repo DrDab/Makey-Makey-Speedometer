@@ -24,7 +24,7 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 
 /**
  * 
- *	Copyright (c) 2017 _c0da_
+ *	Copyright (c) 2017 Victor Du
  *	
  *	Permission is hereby granted, free of charge, to any person obtaining a copy
  *	of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ import org.jnativehook.keyboard.NativeKeyEvent;
  *	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *	SOFTWARE.
  *
- * @author _c0da_
+ * @author Victor Du
  *
  */
 public class Time implements NativeKeyListener
